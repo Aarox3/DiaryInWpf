@@ -40,17 +40,7 @@ namespace DiaryInWpf.ViewModels
 
 
 
-        private void InitGroups()
-        {
-            Groups = new ObservableCollection<Group>
-            {
-                new Group {Id = 0, Name = "Wszystkie"},
-                new Group {Id = 1, Name = "1A"},
-                new Group {Id = 2, Name = "2B"},
-            };
 
-            SelectedGroupId = 0;
-        }
 
         private void RefreshStudents(object obj)
         {
@@ -128,14 +118,14 @@ namespace DiaryInWpf.ViewModels
             set { _selectedGroupId = value; }
         }
 
-        private ObservableCollection<Student> _group;
-        public ObservableCollection<Student> Groups
+        public ObservableCollection<Group> _groups;
+        public ObservableCollection<Group> Groups
 
         {
-            get { return _group; }
+            get { return _groups; }
             set
             {
-                _group = value;
+                _groups = value;
 
                 OnPropertyChanged();
             }
@@ -168,6 +158,20 @@ namespace DiaryInWpf.ViewModels
                   Group = new Group { Id = 1 }
                 },
             };
+        }
+
+
+
+        public void InitGroups()
+        {
+            Groups = new ObservableCollection<Group>
+            {
+                new Group { Id = 0, Name = "Wszystkie" },
+                new Group { Id = 1, Name = "1A" },
+                new Group { Id = 2, Name = "2B" },
+            };
+
+            SelectedGroupId = 0;
         }
 
     }

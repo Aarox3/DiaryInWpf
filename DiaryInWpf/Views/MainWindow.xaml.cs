@@ -26,5 +26,15 @@ namespace DiaryInWpf.Views
             InitializeComponent();
             DataContext = new ViewModels.MainViewModel();
         }
+
+        private void DataGrid_SelectionChanged()
+        {
+            
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

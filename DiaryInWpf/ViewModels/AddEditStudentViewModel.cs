@@ -36,6 +36,8 @@ namespace DiaryInWpf.ViewModels
        
         public ICommand CloseCommand { get; set; }
 
+
+
         private Student _student;
 
         public Student Student
@@ -70,15 +72,14 @@ namespace DiaryInWpf.ViewModels
             set { _selectedGroupId = value; }
         }
 
-        private ObservableCollection<Student> _group;
-        public ObservableCollection<Student> Groups
 
+        public ObservableCollection<Group> _groups;
+        public ObservableCollection<Group> Groups
         {
-            get { return _group; }
+            get { return _groups; }
             set
             {
-                _group = value;
-
+                _groups = value;
                 OnPropertyChanged();
             }
         }
