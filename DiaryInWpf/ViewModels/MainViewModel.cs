@@ -1,10 +1,11 @@
 ﻿using DiaryInWpf.Commands;
-using DiaryInWpf.Models;
+using DiaryInWpf.Models.Wrappers;
 using DiaryInWpf.Views;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -15,6 +16,12 @@ namespace DiaryInWpf.ViewModels
     {
         public MainViewModel()
         {
+
+            using (var context = new ApplicationDbContext())
+            {
+                var students = context.Students.ToList();
+            }
+
             AddStudentsCommand = new RelayCommand(AddEditStudents);
 
             EditStudentsCommand = new RelayCommand(AddEditStudents, CanEditDeleteStudent);
@@ -71,7 +78,7 @@ namespace DiaryInWpf.ViewModels
 
         private void AddEditStudents(object obj)
         {
-            var addEditStudentWindow = new AddEditStudentView(obj as Student);
+            var addEditStudentWindow = new AddEditStudentView(obj as StudentWrapper);
             addEditStudentWindow.Closed += AddEditStudentWindow_Closed;
             addEditStudentWindow.ShowDialog();
         }
@@ -81,9 +88,9 @@ namespace DiaryInWpf.ViewModels
             RefreshDiary();
         }
 
-        private Student _selectedStudent;
+        private StudentWrapper _selectedStudent;
 
-        public Student SelectedStudent
+        public StudentWrapper SelectedStudent
         {
             get { return _selectedStudent; }
             set
@@ -95,9 +102,9 @@ namespace DiaryInWpf.ViewModels
         }
 
 
-        private ObservableCollection<Student> _students;
+        private ObservableCollection<StudentWrapper> _students;
 
-        public ObservableCollection<Student> Students
+        public ObservableCollection<StudentWrapper> Students
         {
             get { return _students; }
             set
@@ -118,8 +125,8 @@ namespace DiaryInWpf.ViewModels
             set { _selectedGroupId = value; }
         }
 
-        public ObservableCollection<Group> _groups;
-        public ObservableCollection<Group> Groups
+        public ObservableCollection<GroupWrapper> _groups;
+        public ObservableCollection<GroupWrapper> Groups
 
         {
             get { return _groups; }
@@ -134,28 +141,28 @@ namespace DiaryInWpf.ViewModels
      
         private void RefreshDiary()
         {
-            Students = new ObservableCollection<Student>
+            Students = new ObservableCollection<StudentWrapper>
             {
-                new Student
+                new StudentWrapper
 
                 {
                   FirstName = "Kazimierz",
                   LastName = "Szpin",
-                  Group = new Group { Id = 1 }
+                  Group = new GroupWrapper { Id = 1 }
                 },
 
-                new Student
+                new StudentWrapper
                 {
                   FirstName = "Jan",
                   LastName = "Kowalski",
-                  Group = new Group { Id = 2 }
+                  Group = new GroupWrapper { Id = 2 }
                 },
 
-                new Student
+                new StudentWrapper
                 {
                   FirstName = "Zofia",
                   LastName = "Nowak",
-                  Group = new Group { Id = 1 }
+                  Group = new GroupWrapper { Id = 1 }
                 },
             };
         }
@@ -164,11 +171,11 @@ namespace DiaryInWpf.ViewModels
 
         public void InitGroups()
         {
-            Groups = new ObservableCollection<Group>
+            Groups = new ObservableCollection<GroupWrapper>
             {
-                new Group { Id = 0, Name = "Wszystkie" },
-                new Group { Id = 1, Name = "1A" },
-                new Group { Id = 2, Name = "2B" },
+                new GroupWrapper { Id = 0, Name = "Wszystkie" },
+                new GroupWrapper { Id = 1, Name = "1A" },
+                new GroupWrapper { Id = 2, Name = "2B" },
             };
 
             SelectedGroupId = 0;

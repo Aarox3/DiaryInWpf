@@ -1,17 +1,6 @@
-﻿using DiaryInWpf.Models;
-using DiaryInWpf.ViewModels;
+﻿using DiaryInWpf.ViewModels;
 using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace DiaryInWpf.Views
 {
@@ -20,7 +9,7 @@ namespace DiaryInWpf.Views
     /// </summary>
     public partial class AddEditStudentView : MetroWindow
     {
-        public AddEditStudentView(Student student = null)
+        public AddEditStudentView(Models.Wrappers.StudentWrapper student = null)
         {
             InitializeComponent();
             DataContext = new AddEditStudentViewModel(student);

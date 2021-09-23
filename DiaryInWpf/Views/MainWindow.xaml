@@ -15,7 +15,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <DataGrid SelectionChanged="DataGrid_SelectionChanged">
+        <DataGrid SelectionChanged="DataGrid_SelectionChanged"
             
             Grid.Row="1" 
             Margin="5" 
@@ -24,7 +24,7 @@
             CanUserAddRows="False"
             IsReadOnly="True"
             SelectionMode="Single"
-            AutoGenerateColumns="False"
+            AutoGenerateColumns="False">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden" />
@@ -39,6 +39,7 @@
                 <DataGridCheckBoxColumn Binding="{Binding Activities}" Header="Dodatkowe zajęcia" />
                 <DataGridTextColumn Binding="{Binding Group.Name}" Header="Klasa" />
             </DataGrid.Columns>
+            
         </DataGrid>
 
 

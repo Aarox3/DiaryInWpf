@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DiaryInWpf.Models
+namespace DiaryInWpf.Models.Wrappers
 {
-    public class Group
+    public class GroupWrapper
     {
         public int Id { get; set; }
 
