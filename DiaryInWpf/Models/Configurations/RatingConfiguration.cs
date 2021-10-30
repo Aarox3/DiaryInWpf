@@ -1,15 +1,17 @@
-﻿using System.Data.Entity.ModelConfiguration;
-using DiaryInWpf.Models.Domains;
+﻿using DiaryInWpf.Models.Domains;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DiaryInWpf.Models.Configurations
 {
     class RatingConfiguration : EntityTypeConfiguration<Rating>
     {
-        public RatingConfiguration()
         {
-            ToTable("dbo.Ratings");
+            public void Configure(EntityTypeBuilder<Rating> builder)
+            {
+                builder.ToTable("dbo.Ratings");
 
-            HasKey(x => x.Id);
+                builder.HasKey(x => x.Id);
+            }
         }
     }
-}

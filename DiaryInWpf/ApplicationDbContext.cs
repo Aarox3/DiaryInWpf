@@ -3,17 +3,15 @@ namespace DiaryInWpf
 {
     using DiaryInWpf.Models.Configurations;
     using DiaryInWpf.Models.Domains;
+    using Microsoft.EntityFrameworkCore;
     using System;
-    using System.Data.Entity;
     using System.Linq;
+    using System.Reflection;
+    using System.Reflection.Emit;
 
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext()
-            : base("name=ApplicationDbContext")
-        {
-        }
-
+      
 
             public DbSet<Student> Students { get; set; }
 
@@ -21,16 +19,23 @@ namespace DiaryInWpf
 
             public DbSet<Rating> Ratings { get; set; }
 
-            protected override void OnModelCreating(DbModelBuilder modelBuilder)
-            {
-                modelBuilder.Configurations.Add(new StudentConfiguration());
 
-                modelBuilder.Configurations.Add(new GroupConfiguration());
-
-                modelBuilder.Configurations.Add(new RatingConfiguration());
-            }
-
+           protected override void OnModelCreating(ModuleBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", true, true);
+
+            var config = builder.Build();
+
+            optionsBuilder
+                .UseSqlServer(config["ConnectionString"]);
+        }
+    }
     }
 
 

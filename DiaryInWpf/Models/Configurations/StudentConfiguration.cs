@@ -1,4 +1,6 @@
 ﻿using DiaryInWpf.Models.Domains;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Data.Entity.ModelConfiguration;
 using System;
 using System.Collections.Generic;
@@ -8,14 +10,15 @@ using System.Threading.Tasks;
 
 namespace DiaryInWpf.Models.Configurations
 {
-    class StudentConfiguration : EntityTypeConfiguration<Student>
+  {
+    class StudentConfiguration : IEntityTypeConfiguration<Student>
     {
 
-        public StudentConfiguration()
+        public void Configure(EntityTypeBuilder<Student> builder)
         {
-            ToTable("dbo.Students");
+            builder.ToTable("dbo.Students");
 
-            HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
         }
     }
 }

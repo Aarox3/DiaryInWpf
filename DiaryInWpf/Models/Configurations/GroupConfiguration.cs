@@ -5,21 +5,29 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiaryInWpf.Models.Domains;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 
 namespace DiaryInWpf.Models.Configurations
 {
     class GroupConfiguration : EntityTypeConfiguration<Group>
     {
-        public GroupConfiguration()
+        class GroupConfiguration : IEntityTypeConfiguration<Group>
         {
-            ToTable("dbo.Groups");
+            public void Configure(EntityTypeBuilder<Group> builder)
+            {
+                builder.ToTable("dbo.Groups");
 
-            Property(x => x.Id)
-                .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+                builder.Property(x => x.Id)
+                    .ValueGeneratedOnAdd();
 
-            Property(x => x.Name)
-                .HasMaxLength(20)
-                .IsRequired();
+                builder.Property(x => x.Name)
+                    .HasMaxLength(20)
+                    .IsRequired();
+            }
         }
     }
 }
+
